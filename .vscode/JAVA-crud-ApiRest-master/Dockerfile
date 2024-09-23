@@ -5,7 +5,7 @@ WORKDIR /app
 
 RUN chmod +x mvnw
 RUN ./mvnw package -DskipTest
-RUN mv -f target/*.jar app.jar
+RUN mv target/*.jar app.jar
 
 FROM eclipse-temurin:21-jre
 ARG PORT
@@ -16,4 +16,4 @@ COPY  --from=build /app/app.jar .
 RUN useradd runtime
 USER runtime
 
-ENTRYPOINT ["java","-Dserver.port=${PORT}","-jar","app.jar"]
+ENTRYPOINT ["java","-Dserver.PORT=${PORT}","-jar","app.jar"]
